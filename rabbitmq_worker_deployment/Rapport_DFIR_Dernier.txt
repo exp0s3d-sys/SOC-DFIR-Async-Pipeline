@@ -1,0 +1,23 @@
+
+=====================================================
+    RAPPORT D'INVESTIGATION AUTOMATISÉ (PFA)
+=====================================================
+Date               : 2026-08-24 17:24:01
+Hôte / Source      : PatientZero-VM
+Type d'IoC         : Suspicious Activity
+Valeur analysée    : N/A
+Hash analysé       : 96B43352DEE23EAF23202FDA7DBAE569502E3AA432F0CF2B945F6BBF8130CEAD
+=====================================================
+    ENRICHISSEMENT CTI MULTI-SOURCES
+=====================================================
+[1] VIRUSTOTAL :
+- Antivirus détectant comme Malveillant : 0
+- Antivirus ne détectant rien (Sain)    : 69
+
+[2] ALIENVAULT OTX :
+- Présent dans des Pulses (Menaces)   : 0
+
+=====================================================
+    CONCLUSION DE LA CROISÉE DES SOURCES
+=====================================================
+CLEAN - Fichier non reconnu comme malveillant par l'ensemble des sources.

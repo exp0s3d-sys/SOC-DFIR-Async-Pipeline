@@ -1,0 +1,58 @@
+*************************************************************************************
+  RAPPORT D'ANALYSE D'INCIDENT SOC (TIER 3) - INC-0xESec-202609051743  
+*************************************************************************************
+
+DATE ET HEURE      : 2026-09-05_17-43-20
+NIVEAU DE GRAVITE  : [MOYENNE]
+MACHINE / UTILISATEUR : DESKTOP-FQC6JMP\slysl
+
+=====================================================================================
+[1] RESUME EXECUTIF DE L'INCIDENT
+=====================================================================================
+Le système d'alerte (Sysmon/Splunk) a intercepté un événement suspect.
+L'analyse automatisée démontre que des techniques potentiellement malveillantes ont été employées.
+
+=====================================================================================
+[2] CARTOGRAPHIE MITRE ATT&CK
+=====================================================================================
+  -> TA0002 - Execution (T1059 Command and Scripting Interpreter)
+
+=====================================================================================
+[3] GENEALOGIE ET CONTEXTE TECHNIQUE
+=====================================================================================
+Processus Suspect    : C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe
+Processus Parent     : 
+Ligne de commande    : 
+Event ID Déclenché   : 11
+Fichier Cible (Créé) : C:\Users\slysl\AppData\Local\Temp\__PSScriptPolicyTest_0ileunqp.oej.ps1
+
+=====================================================================================
+[4] ANALYSE D'IMPACT DETAILLEE (CE QUI S'EST REELLEMENT PASSE)
+=====================================================================================
+EXÉCUTION DE SCRIPT: Un interpréteur de commandes système a été lancé. Vérifiez la commande exacte pour identifier s'il s'agit d'une activité légitime ou d'un LOLBin.
+
+=====================================================================================
+[5] INTELLIGENCE SUR LES MENACES (INDICATEURS DE COMPROMISSION)
+=====================================================================================
+Hash Associé (SHA256/MD5) : 
+[-] VirusTotal Score      : 0/72
+[-] AlienVault OTX Pulses : 0 (Bypass temporaire)
+
+=====================================================================================
+[6] DIRECTIVES D'INVESTIGATION FORENSIQUE (DFIR)
+=====================================================================================
+Le conteneur DFIR automatisé ou l'analyste N3 doit exécuter les actions suivantes :
+
+[*] SUR LA MEMOIRE VIVE (RAM) :
+    -> Utilisez Volatility ('windows.cmdline' et 'windows.envars') sur le PID cible pour extraire les scripts décodés et les variables d'environnement injectées.
+
+[*] SUR LE DISQUE DUR (Artifacts) :
+    -> Extrayez 'ConsoleHost_history.txt' (%APPDATA%\Microsoft\Windows\PowerShell\PSReadLine\) pour voir l'historique des commandes tapées.
+
+=====================================================================================
+[7] ACTIONS DE CONFINEMENT IMMEDIATES
+=====================================================================================
+1. Isoler le poste 'DESKTOP-FQC6JMP' du réseau local.
+2. Terminer l'arborescence du processus 'powershell.exe' via la console de l'EDR.
+3. Réaliser une capture complète de la RAM (.raw/.mem) et l'envoyer dans le dossier /evidence.
+4. Bloquer le hash '' sur l'ensemble du parc informatique.

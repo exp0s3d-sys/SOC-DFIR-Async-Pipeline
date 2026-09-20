@@ -1,0 +1,27 @@
+version: '3.8'
+
+services:
+  splunk:
+    image: splunk/splunk:latest
+    container_name: splunk_soc_master
+    environment:
+      - SPLUNK_START_ARGS=--accept-license
+      - SPLUNK_GENERAL_TERMS=--accept-sgt-current-at-splunk-com
+      - SPLUNK_PASSWORD=ChangeMe123!
+    ports:
+      - "8000:8000"
+      - "9997:9997"
+      - "8088:8088"
+    volumes:
+      - splunk_data:/opt/splunk/etc
+      - splunk_config:/opt/splunk/var
+    deploy:
+      resources:
+        limits:
+          cpus: '2.0'
+          memory: 8G
+    restart: unless-stopped
+
+volumes:
+  splunk_data:
+  splunk_config:

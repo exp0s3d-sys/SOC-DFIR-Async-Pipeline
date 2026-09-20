@@ -1,0 +1,36 @@
+version: '3.8' #[cite: 3]
+
+services: #[cite: 3]
+  # 1. Le Message Broker (L'Asynchrone) #[cite: 3]
+  rabbitmq: #[cite: 3]
+    image: rabbitmq:3-management-alpine # Khedemna b'Alpine bach n-9et3ou mn l'consommation d'RAM #[cite: 3]
+    container_name: dfir-rabbitmq #[cite: 3]
+    restart: always #[cite: 3]
+    ports: #[cite: 3]
+      - "5672:5672"   # Port dyal l'API (bach Splunk w Python y-lo7ou l'alertes) #[cite: 3]
+      - "15672:15672" # Port dyal l'interface Web (Dashboard) #[cite: 3]
+    volumes: #[cite: 3]
+      - rabbitmq_data:/var/lib/rabbitmq #[cite: 3]
+    networks: #[cite: 3]
+      - soc-network #[cite: 3]
+
+  # 2. L'API Python (Le Worker DFIR) #[cite: 3]
+  dfir-api: #[cite: 3]
+    build: ./api_worker  # Docker ghadi y-9leb 3la dossier smayto 'api_worker' fih l'Dockerfile #[cite: 3]
+    container_name: dfir-python-api #[cite: 3]
+    restart: always #[cite: 3]
+    ports: #[cite: 3]
+      - "5000:5000"    # Port dyal Webhook (bach Splunk y-sift POST requests) #[cite: 3]
+    depends_on: #[cite: 3]
+      - rabbitmq       # L'API dyalna ghat-tsenna RabbitMQ y-cha3l howa lowel 3ad t-khdem #[cite: 3]
+    networks: #[cite: 3]
+      - soc-network #[cite: 3]
+    volumes:
+      - ./evidence:/evidence  # <--- Hada howa stter l'wa7id li zedt
+
+networks: #[cite: 3]
+  soc-network: #[cite: 3]
+    driver: bridge # Kay-creeyi réseau m-securisé w m-3zoul ghir bin had l'conteneurs #[cite: 3]
+
+volumes: #[cite: 3]
+  rabbitmq_data: #[cite: 3]
